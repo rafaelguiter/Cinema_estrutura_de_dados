@@ -1,0 +1,46 @@
+//estrutura para receber o codigo
+typedef struct {
+    int numero_bilhete;
+    char tipo_ingresso[20]; // "inteiro" ou "meia-entrada"
+} Bilhete;
+
+
+//codigo da ordenação
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct {
+    int numero_bilhete;
+    char tipo_ingresso[20]; // "inteiro" ou "meia-entrada"
+} Bilhete;
+
+// Função que define a prioridade do tipo de ingresso
+int prioridade_tipo(const char* tipo, const char* prioridade) {
+    return strcmp(tipo, prioridade) == 0 ? 0 : 1;
+}
+
+// Função de comparação para qsort
+int comparar_bilhetes(const void* a, const void* b, void* args) {
+    Bilhete* b1 = (Bilhete*)a;
+    Bilhete* b2 = (Bilhete*)b;
+    const char* prioridade_tipo_ingresso = ((const char**)args)[0];
+    int ordem_crescente = *((int*)(((const char**)args)[1]));
+
+    int pri1 = prioridade_tipo(b1->tipo_ingresso, prioridade_tipo_ingresso);
+    int pri2 = prioridade_tipo(b2->tipo_ingresso, prioridade_tipo_ingresso);
+
+    if (pri1 != pri2)
+        return pri1 - pri2;
+
+    // Se os tipos forem iguais, ordena pelo número do bilhete
+    return ordem_crescente ? (b1->numero_bilhete - b2->numero_bilhete)
+                           : (b2->numero_bilhete - b1->numero_bilhete);
+}
+
+// Wrapper para qsort_r com ponteiro extra
+void ordenar_bilhetes(Bilhete* bilhetes, int tamanho, int crescente, const char* tipo_prioritario) {
+    void* args[2] = {(void*)tipo_prioritario, &crescente};
+    qsort_r(bilhetes, tamanho, sizeof(Bilhete), comparar_bilhetes, args);
+}
