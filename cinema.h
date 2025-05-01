@@ -5,12 +5,10 @@
 #define COLUNAS 10
 #define CATALOGO 5
 
-
 typedef struct{
     char nome[70];
     char cpf[15];
 }Cliente;
-
 
 typedef struct{
     char nome[70];
@@ -35,9 +33,7 @@ struct pagamento{
     struct pagamento *proximo;
 }*pessoa;
 
-
-
-// FunÃ§Ãµes
+// Protótipos originais
 void mostrarFilmes();
 void escolherFilme(Filme filmes[], Filme **fileme_esolhido);
 float calcular_total(float inteira, float meia, Filme *film);
@@ -47,4 +43,10 @@ void imprimirIngresso(pagamento *pag);
 void imprimirRelatorio(struct pagamento *lista_pagamentos);
 void limparBuffer();
 
-#endif   
+// Funções de busca e validação
+pagamento* buscarIngressoBinario(pagamento *lista, int id);  // Agora implementa busca binária verdadeira
+void ordenarPagamentos(pagamento **lista);
+int validarCPF(const char *cpf);
+int validarNome(const char *nome); 
+
+#endif
