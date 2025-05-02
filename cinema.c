@@ -94,7 +94,7 @@ void comprar_assentos(Cliente *cli, Filme filmes[]) {
 
     Assentos(filme_escolhido);
 
-    printf("\nQuantos ingressos deseja comprar? - ");
+    printf("\nQuantos ingressos deseja comprar ?  ");
     scanf("%d", &comprar);
     limparBuffer();
     printf("\n");
@@ -226,6 +226,7 @@ void imprimirIngresso(pagamento *pag) {
 
 void imprimirRelatorio(struct pagamento *lista_pagamentos) {
     struct pagamento *atual = lista_pagamentos;
+
 
     while (atual != NULL) {
         printf("\n------------------------------\n");
@@ -447,13 +448,32 @@ void imprimir_Relatorio_meia_primeiro(pagamento *lista_pagamentos) {
 
     qsort(array, tamanho, sizeof(pagamento *), compararPorMeiaEntrada);
 
+    int encontrou = 0, total = 0, qtd =0;
+    float valor=0, pagar=0;
+
     printf("\n***** RELATORIO - MEIA ENTRADA *****\n\n\n");
     for (int i = 0; i < tamanho; i++) {
         pagamento *p = array[i];
+
+        if(p->ingresso_meia > 0){
         
-        printf("ID: %d | Nome: %s | Meia: %d | Inteira: %d\n", p->id, p->nome, p->ingresso_meia, p->ingresso_interios);
-        printf("---------------------------------------------\n");
+        printf("ID: %d | Nome: %s | Ingresso: R$%.2f |  Meia: %d\n", p->id, p->nome,(p->filme->valor / 2),p->ingresso_meia);
+        printf("--------------------------------------------------------------------------------\n");
+
+        total += p->ingresso_meia;
+        qtd = p->ingresso_meia;
+        valor = p->filme->valor / 2;
+        pagar += qtd * valor; 
+        encontrou = 1;
     }
+}
+
+if(!encontrou){
+    printf("\n\n Nenhum pagamento com meia entrada foi encontrado\n\n");
+}else{
+    printf("\n\nO numero total de meia entrada comprada foi - %d", total);
+    printf("\n\nO valor total arrecadado foi - R$%.2f", pagar);
+}
 
     free(array);
 }
@@ -480,11 +500,32 @@ void imprimir_Relatorio_inteira_primeiro(pagamento *lista_pagamentos) {
     qsort(array, tamanho, sizeof(pagamento *), compararPorInteiraEntrada);
 
     printf("\n***** RELATORIO - ENTRADA INTEIRA *****\n\n\n");
+
+    int encontrou = 0, total = 0, qtd = 0;
+    float valor=0, pagar=0;
+
     for (int i = 0; i < tamanho; i++) {
         pagamento *p = array[i];
-        printf("ID: %d | Nome: %s | Meia: %d | Inteira: %d\n", p->id, p->nome, p->ingresso_meia, p->ingresso_interios);
-        printf("---------------------------------------------------\n");
+
+        if (p->ingresso_meia >= 0 && p->ingresso_interios > 0) {
+
+        printf("ID: %d | Nome: %s | Ingresso: R$%.2f |  Inteira: %d\n", p->id, p->nome,p->filme->valor,p->ingresso_interios);
+        printf("------------------------------------------------------------------------------------\n");
+        
+        total += p->ingresso_interios;
+        qtd = p->ingresso_interios;
+        valor = p->filme->valor;
+        pagar += qtd * valor;
+        encontrou = 1;
     }
+}
+
+if(!encontrou){
+    printf("\n\n Nenhum pagamento entrada inteira foi encontrado\n\n");
+}else{
+    printf("\n\nO numero total de entradas Inteiras compradas foi  -  %d", total);
+    printf("\n\nO valor total arrecadado foi - R$%.2f", pagar);
+}
 
     free(array);
 }
@@ -501,13 +542,5 @@ int validarDigitosCPF(const char *cpf) {
 int validarCPF(const char *cpf) {
     return (strlen(cpf) == 11 || strlen(cpf) == 14);
 }
-
-
-
-
-
-
-
-
 
 

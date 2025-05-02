@@ -120,7 +120,7 @@ do{
 
                     limpartela();
                     printf("**** IMPRIMIR RELATORIO ****\n\n");
-                    printf("Deseja ordenar por Meia ou Inteira ?\n");
+                    printf("Deseja um relatorio de quais ingressos ?\n");
 
                     do
                     {
