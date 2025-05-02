@@ -492,10 +492,10 @@ void imprimir_Relatorio_inteira_primeiro(pagamento *lista_pagamentos) {
 int validarDigitosCPF(const char *cpf) {
     for (int i = 0; cpf[i] != '\0'; i++) {
         if (!(cpf[i] >= '0' && cpf[i] <= '9') && cpf[i] != '.' && cpf[i] != '-') {
-            return 0; // Caractere inválido
+            return 0;
         }
     }
-    return 1; // CPF válido (formato)
+    return 1;
 }
 
 int validarCPF(const char *cpf) {
