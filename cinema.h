@@ -33,6 +33,7 @@ struct pagamento{
     struct pagamento *proximo;
 }*pessoa;
 
+<<<<<<< HEAD
 
 // funcoes
 
@@ -59,3 +60,22 @@ int validarDigitosCPF(const char *cpf);
 int validarCPF(const char *cpf);
 
 #endif
+=======
+// Protótipos originais
+void mostrarFilmes();
+void escolherFilme(Filme filmes[], Filme **fileme_esolhido);
+float calcular_total(float inteira, float meia, Filme *film);
+void Assentos(Filme *filmes);
+void comprar_assentos(Cliente *cli, Filme filmes[]);
+void imprimirIngresso(pagamento *pag);
+void imprimirRelatorio(struct pagamento *lista_pagamentos);
+void limparBuffer();
+
+// Funções de busca e validação
+pagamento* buscarIngressoBinario(pagamento *lista, int id);  // Agora implementa busca binária verdadeira
+void ordenarPagamentos(pagamento **lista);
+int validarCPF(const char *cpf);
+int validarNome(const char *nome); 
+
+#endif
+>>>>>>> e95f4288510976829b6e4e0c5967446060758e84
